@@ -1,58 +1,65 @@
-# Job Tracker API
+# 📌 Job Tracker API
 
-A Spring Boot REST API for managing job applications and tracking their status.
+*A Spring Boot REST API for managing and tracking job applications efficiently.*
 
-## Features
+[![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen)](https://spring.io/projects/spring-boot)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange)](https://www.mysql.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
-### Core Features
-- **Job CRUD Operations**: Create, Read, Update, Delete job listings
-- **Status Tracking**: Track job status (Applied, Interview, Offer, Rejected)
-- **Search & Filter**: Search by company, position, status, and notes
-- **Clean Architecture**: Controller-Service-Repository pattern
-- **Data Persistence**: MySQL database with JPA/Hibernate
-- **API Documentation**: Interactive Swagger UI
-- **Testing**: Comprehensive Postman test suite
+## 🚀 Overview
 
-### API Endpoints
+The **Job Tracker API** is a backend solution built with Spring Boot, designed to help professionals organize and monitor their job search process.
+It enables CRUD operations, filtering, statistics, and integrates **Swagger UI** for easy API exploration.
 
-#### Job Management
-- `POST /api/jobs` - Create a new job
-- `GET /api/jobs` - Get all jobs
-- `GET /api/jobs/{id}` - Get job by ID
-- `PUT /api/jobs/{id}` - Update job
-- `DELETE /api/jobs/{id}` - Delete job
+This project can be used as a **standalone API** or integrated into a frontend like React or Angular.
+## ✨ Features
 
-#### Search & Filter
-- `GET /api/jobs/status/{status}` - Get jobs by status
-- `GET /api/jobs/company/{company}` - Get jobs by company
-- `GET /api/jobs/search/position?keyword={keyword}` - Search by position
-- `GET /api/jobs/search/notes?keyword={keyword}` - Search by notes
+* **Job Management:** Create, read, update, and delete job listings
+* **Status Tracking:** Monitor application stages (`Applied`, `Interview`, `Offer`, `Rejected`)
+* **Search & Filters:** Find jobs by company, position, status, or notes
+* **Statistics:** Track number of applications by status
+* **Clean Architecture:** Controller → Service → Repository pattern
+* **Data Persistence:** MySQL + JPA/Hibernate
+* **Interactive Docs:** Swagger/OpenAPI integration
+* **Testing:** Postman collections & unit tests
 
-#### Statistics & Ordering
-- `GET /api/jobs/stats/status/{status}` - Get job count by status
-- `GET /api/jobs/ordered/date` - Get jobs ordered by date
-- `GET /api/jobs/ordered/company` - Get jobs ordered by company
+## 📂 API Endpoints
 
-## Tech Stack
+| Method | Endpoint                                      | Description              |
+| ------ | --------------------------------------------- | ------------------------ |
+| POST   | `/api/jobs`                                   | Create a new job         |
+| GET    | `/api/jobs`                                   | Get all jobs             |
+| GET    | `/api/jobs/{id}`                              | Get job by ID            |
+| PUT    | `/api/jobs/{id}`                              | Update job               |
+| DELETE | `/api/jobs/{id}`                              | Delete job               |
+| GET    | `/api/jobs/status/{status}`                   | Filter by status         |
+| GET    | `/api/jobs/company/{company}`                 | Filter by company        |
+| GET    | `/api/jobs/search/position?keyword={keyword}` | Search by position       |
+| GET    | `/api/jobs/stats/status/{status}`             | Get statistics by status |
 
-- **Backend**: Java 17+, Spring Boot 3.2.0
-- **Database**: MySQL 8.0+
-- **ORM**: JPA/Hibernate
-- **API Documentation**: Swagger/OpenAPI 3
-- **Build Tool**: Maven
-- **Testing**: Spring Boot Test, H2 (for tests)
 
-## Prerequisites
+## 🛠 Tech Stack
 
-- Java 17 or higher
-- Maven 3.6+
-- MySQL 8.0+ (running on localhost:3306)
+* **Backend:** Java 17+, Spring Boot 3.2.0
+* **Database:** MySQL 8.0+
+* **ORM:** JPA/Hibernate
+* **Docs:** Swagger/OpenAPI 3
+* **Build Tool:** Maven
+* **Testing:** JUnit, Postman, H2 (for tests)
 
-## Setup Instructions
 
-### 1. Database Setup
+## ⚙️ Setup Instructions
 
-Create a MySQL database:
+### 1️⃣ Clone & Navigate
+
+```bash
+git clone <repository-url>
+cd job-tracker-api
+```
+
+### 2️⃣ Database Setup
+
 ```sql
 CREATE DATABASE job_tracker_db;
 CREATE USER 'job_tracker'@'localhost' IDENTIFIED BY 'password';
@@ -60,169 +67,52 @@ GRANT ALL PRIVILEGES ON job_tracker_db.* TO 'job_tracker'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-### 2. Application Configuration
+### 3️⃣ Configure Application
 
-Update `src/main/resources/application.properties` if needed:
+`src/main/resources/application.properties`
+
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/job_tracker_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.url=jdbc:mysql://localhost:3306/job_tracker_db
 spring.datasource.username=root
 spring.datasource.password=password
 ```
 
-### 3. Build and Run
+### 4️⃣ Build & Run
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd job-tracker-api
-
-# Build the application
 mvn clean compile
-
-# Run the application
 mvn spring-boot:run
 ```
 
-The application will start on `http://localhost:8080`
+Access API at: **`http://localhost:8080`**
+Swagger UI: **`http://localhost:8080/swagger-ui.html`**
 
-### 4. Verify Setup
+---
 
-- **Health Check**: `GET http://localhost:8080/api/jobs`
-- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
-- **API Docs**: `http://localhost:8080/api-docs`
+## 🧪 Testing
 
-## API Documentation
-
-### Swagger UI
-Access the interactive API documentation at: `http://localhost:8080/swagger-ui.html`
-
-### Sample Requests
-
-#### Create a Job
-```bash
-curl -X POST http://localhost:8080/api/jobs \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "company": "Google",
-    "position": "Software Engineer",
-    "status": "APPLIED",
-    "notes": "Applied through LinkedIn"
-  }'
-```
-
-#### Get All Jobs
-```bash
-curl -X GET http://localhost:8080/api/jobs
-```
-
-#### Update Job Status
-```bash
-curl -X PUT http://localhost:8080/api/jobs/1 \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "company": "Google",
-    "position": "Software Engineer",
-    "status": "INTERVIEW",
-    "notes": "Phone screening scheduled"
-  }'
-```
-
-## Testing
-
-### Unit Tests
 ```bash
 mvn test
 ```
 
-### Postman Testing
+For Postman:
+
 1. Import `postman/Job_Tracker_API.postman_collection.json`
-2. Import `postman/Job_Tracker_Environment.postman_environment.json`
-3. Run the collection to test all endpoints
+2. Run the collection
 
-## Project Structure
+---
 
-```
-src/
-├── main/
-│   ├── java/com/jobtracker/
-│   │   ├── JobTrackerApplication.java     # Main application class
-│   │   ├── controller/
-│   │   │   └── JobController.java         # REST endpoints
-│   │   ├── service/
-│   │   │   ├── JobService.java            # Service interface
-│   │   │   └── JobServiceImpl.java        # Service implementation
-│   │   ├── repository/
-│   │   │   └── JobRepository.java         # Data access layer
-│   │   ├── model/
-│   │   │   ├── Job.java                   # Job entity
-│   │   │   └── JobStatus.java             # Status enum
-│   │   └── config/
-│   │       └── SwaggerConfig.java         # API documentation config
-│   └── resources/
-│       ├── application.properties         # Main configuration
-│       └── application-test.properties    # Test configuration
-└── test/
-    └── resources/
-        └── application.properties         # Test database config
-```
+## 📌 Future Roadmap
 
-## Job Status Values
+* 🔑 User authentication (JWT/OAuth)
+* 📊 Analytics dashboard
+* 📎 Resume/file uploads
+* 📬 Email notifications
+* 📤 Export to PDF/Excel
+* 🌐 Integration with job boards
 
-- `APPLIED` - Application submitted
-- `INTERVIEW` - Interview scheduled/in progress
-- `OFFER` - Job offer received
-- `REJECTED` - Application rejected
+---
 
-## Development
+## 📜 License
 
-### Adding New Features
-
-1. **Entity Changes**: Update `Job.java` and run migration
-2. **Repository**: Add new query methods to `JobRepository.java`
-3. **Service**: Implement business logic in `JobServiceImpl.java`
-4. **Controller**: Add REST endpoints in `JobController.java`
-5. **Tests**: Update Postman collection
-
-### Database Migrations
-
-The application uses `spring.jpa.hibernate.ddl-auto=update` for automatic schema updates in development. For production, consider using Flyway or Liquibase for proper migration management.
-
-## Production Deployment
-
-### Environment Variables
-```bash
-export SPRING_DATASOURCE_URL=jdbc:mysql://your-db-host:3306/job_tracker_db
-export SPRING_DATASOURCE_USERNAME=your-username
-export SPRING_DATASOURCE_PASSWORD=your-password
-export SPRING_PROFILES_ACTIVE=prod
-```
-
-### Build JAR
-```bash
-mvn clean package
-java -jar target/job-tracker-api-1.0.0.jar
-```
-
-## Future Enhancements
-
-The following features are planned for future iterations:
-
-- User authentication (JWT/OAuth)
-- Frontend UI (React/Angular)
-- Job application analytics dashboard
-- File uploads (resume storage)
-- Email notifications/reminders
-- Advanced search filters
-- Export functionality (PDF/Excel)
-- Integration with job boards
-
-## Support
-
-For issues and questions:
-- Check the Swagger UI for API documentation
-- Review the Postman collection for example requests
-- Check application logs for error details
-
-## License
-
-This project is licensed under the MIT License.
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
